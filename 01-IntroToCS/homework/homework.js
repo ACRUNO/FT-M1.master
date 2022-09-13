@@ -3,10 +3,10 @@
 function BinarioADecimal(num) {
   // tu codigo aca
   let res = 0;
-  var array = Array.from(String(num), Number);
-  for (let i = 0; i<array.length; i++){
-    if (array[i] === 1)
-      res = res + Math.pow(2, array.length-(i+1));
+  num = num.reverse();
+  for (let i = 0; i<num.length; i++){
+    if (num[i] === 1)
+      res += 2**i;
   }
   return res;
   }
@@ -14,13 +14,12 @@ function BinarioADecimal(num) {
 function DecimalABinario(num) {
   // tu codigo aca
   let res= [];
-  let i=0;
-  while (Math.floor(num) / 2 != 0 ){
-    res[i] = Math.floor(num) % 2;
-    num = num/2;
-    i++;
+  
+  while (num !== 0 ){
+    res.unshift(num % 2);
+    num = Math.floor(num/2);
   }
-  return res.reverse().join('');
+  return res.join('');
 }
 
 
