@@ -30,8 +30,8 @@ console.log(x); // 1
 ```
 
 ```javascript
-console.log(bar); // 1
-console.log(baz); // 2
+console.log(bar); // Undefined
+console.log(baz); // error! baz is not defined
 foo(); // 'Hola!'
 function foo() { console.log('Hola!'); }
 var bar = 1;
@@ -68,7 +68,7 @@ if (true) {
     console.log(pm); // 'Reverse Flash'
 }
 console.log(instructor); // 'The Flash'
-console.log(pm); // 'Reverse Flash'
+console.log(pm); // 'Franco'
 ```
 ### Coerción de Datos
 
@@ -88,7 +88,7 @@ parseInt("09") // 9
 2 && 5 // 5
 5 || 0 // 5
 0 || 5 // 5
-[3]+[3]-[10] // NaN
+[3]+[3]-[10] // 23
 3>2>1 // false
 [] == ![] // true
 ```
@@ -115,7 +115,6 @@ test();
 
 // undefined
 // 2
-// undefined
 ```
 
 Y el de este código? :
