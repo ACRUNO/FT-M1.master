@@ -42,14 +42,13 @@ class Queue { constructor(){
 enqueue(arg){return this.array.push(arg);};
 dequeue(){return this.array.shift();};
 size(){return this.array.length;};
-}
-*/
+}*/
+
 
 
 function Queue(){
   this.array = [];
 }
-
 Queue.prototype.enqueue = function(arg){
   this.array.push(arg);
 }
