@@ -1,5 +1,7 @@
 "use strict";
 
+const ConsoleLogger = require("@11ty/eleventy/src/Util/ConsoleLogger");
+
 /*
 Implementar la clase LinkedList, definiendo los siguientes métodos:
   - add: agrega un nuevo nodo al final de la lista;
@@ -13,7 +15,6 @@ Implementar la clase LinkedList, definiendo los siguientes métodos:
 
 function LinkedList() {
   this.head = null;
-  this.length = 0;
 }
 
 function Node(value) {
@@ -26,52 +27,45 @@ LinkedList.prototype.add = function(value){
   var current = this.head;
   if (!current){
     this.head = node;
-    this.length++;
-    return node;
+    return;
   }
-  while (current.next !== null){
+  while (current.next){
     current = current.next;
   }
   current.next = node;
-  this.length++;
-  return node;
 };
 
 LinkedList.prototype.remove = function(){
   var current = this.head;
-  if (this.head === null){
+  if (!current){
     return null;
   }
-  if (current.next === null){
-      var value = current.value;
+  if (!current.next){
       this.head = null;
-      return value;
+      return current.value;
   }
-  var before;
-  while (current.next !== null){
-    before = current;
+  while (current.next.next){
     current = current.next;
     }
-  before.next = null;
-  return current.value;
+  var removed = current.next;
+  current.next = null;
+  return removed.value;
 }
 
 LinkedList.prototype.search = function(value){
   var current = this.head;
-  while (current !== null){
-  if (value === current.value){
-    return current.value;
-    }
+  while (current){
     if (typeof value === 'function'){
-      if (value(current.value) === true) {
+      if (value(current.value)) {
         return current.value;
     }}
+    if (value === current.value){
+    return current.value;
+    }
     current = current.next;
   }
   return null;
 }
-
-
 /*
 Implementar la clase HashTable.
 
@@ -88,7 +82,7 @@ Ejemplo: supongamos que quiero guardar {instructora: 'Ani'} en la tabla. Primero
 */
 
 function HashTable() {
-  this.buckets = [{}];
+  this.buckets = [];
   this.numBuckets = 35;
 }
 
@@ -97,15 +91,15 @@ HashTable.prototype.hash = function(clave){
   for (var i = 0; i < clave.length; i++){
     code+= clave.charCodeAt(i);
   }
-  return code%35;
+  return code % this.numBuckets;
 };
 
 HashTable.prototype.set = function(clave, valor){
-  if (typeof clave != 'string'){
-    throw TypeError('Error');
+  if (typeof clave !== 'string'){
+    throw new TypeError('Keys must be strings');
   }
   var newClave = this.hash(clave);
-  if (this.buckets[newClave] === undefined){
+  if (!this.buckets[newClave]){
     this.buckets[newClave] = {};
   }
   this.buckets[newClave][clave] = valor;
@@ -117,10 +111,8 @@ HashTable.prototype.get = function(clave){
 };
 
 HashTable.prototype.hasKey = function(clave){
-  if (this.buckets[this.hash(clave)].hasOwnProperty(clave)){
-    return true;
-  }
-  return false;
+  var newClave = this.hash(clave);
+  return this.buckets[newClave].hasOwnProperty(clave)
 };
 
 
