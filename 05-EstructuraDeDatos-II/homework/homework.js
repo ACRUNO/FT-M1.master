@@ -66,6 +66,8 @@ LinkedList.prototype.search = function(value){
   }
   return null;
 }
+
+
 /*
 Implementar la clase HashTable.
 
@@ -108,7 +110,7 @@ HashTable.prototype.set = function(clave, valor){
 HashTable.prototype.get = function(clave){
   var newClave = this.hash(clave);
     return this.buckets[newClave][clave];
-};
+  };
 
 HashTable.prototype.hasKey = function(clave){
   var newClave = this.hash(clave);
