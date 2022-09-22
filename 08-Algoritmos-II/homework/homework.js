@@ -59,10 +59,6 @@ function mergeSort(array) {
   };
 };
 
-var array = [4, 7, 8, 4,3,2,9,0,15,6];
-var arr1 = mergeSort(array);
-arr1
-
 // No modificar nada debajo de esta línea
 // --------------------------------
 
