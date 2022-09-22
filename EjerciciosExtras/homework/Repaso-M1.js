@@ -1,3 +1,4 @@
+const { prototype } = require('@11ty/eleventy');
 const {
     Queue,
     Node,
@@ -16,7 +17,15 @@ const {
 
 var countArray = function(array) {
     // Tu código aca:
-    
+    var suma = 0;
+    for (var i = 0; i < array.length; i++){
+        if (Array.isArray(array[i])){
+            suma += countArray(array[i]);
+        } else{
+            suma += array[i];
+        }
+    }
+    return suma;    
 }
 
 
@@ -39,7 +48,16 @@ var countArray = function(array) {
 
 var countProps = function(obj) {
     // Tu código aca:
-
+    var count = 0;
+    for (var prop in obj){
+        count++;
+        if(typeof obj[prop] === "object"){
+          if(!Array.isArray(obj[prop])){
+            count+= countProps(obj[prop]);
+          }  
+        }
+    }
+    return count;
 }
 
 
@@ -53,7 +71,16 @@ var countProps = function(obj) {
 
 LinkedList.prototype.changeNotNumbers = function(){
     // Tu código aca:
-
+    var count = 0;
+    var current = this.head;
+    while (current){
+        if (isNaN(Number(current.value))){
+            count++;
+            current.value = "Kiricocho";
+        }
+        current = current.next;
+    }
+    return count;
 }
 
 
@@ -67,7 +94,14 @@ LinkedList.prototype.changeNotNumbers = function(){
 
 var mergeQueues = function(queueOne, queueTwo) {
     // Tu código aca:
-
+    var newQueue = new Queue();
+    while (queueOne.size() || queueTwo.size()){
+        var firstElement = queueOne.dequeue();
+        var secondElement = queueTwo.dequeue();
+        if(firstElement) newQueue.enqueue(firstElement);
+        if(secondElement) newQueue.enqueue(secondElement);
+    };
+    return newQueue;
 }
 
 
@@ -82,6 +116,9 @@ var mergeQueues = function(queueOne, queueTwo) {
 
 var closureMult = function(multiplier) {
     // Tu código aca:
+    return function (numero){
+        return multiplier * numero;
+    }
 
 }
 
@@ -89,8 +126,26 @@ var closureMult = function(multiplier) {
 // que debe retornar la suma total de los valores dentro de cada nodo del arbol
 BinarySearchTree.prototype.sum = function() {
     // Tu código aca:
+    //var sum = 0;
+    // if (this.value === null) return 0;
+
+    if (!this.left && !this.right){
+        return this.value;
+    }
+
+    if (!this.left){
+        return this.value + this.right.sum();
+    }
+
+    if (!this.right){
+        return this.value + this.left.sum();
+    }
+
+    return this.value + this.left.sum() + this.right.sum();
 
 }
+
+
 
 module.exports = {
     countArray,
